@@ -12,15 +12,10 @@
     ],
     "require": {
         "php": ">=5.6",
-        "dragonmantank/cron-expression": "^3.0",
-        "opis/closure": "^3.5",
-        "swiftmailer/swiftmailer": "^5.4|^6.0",
-        "symfony/process": "^2.7|^3.0|^4.0|^5.0"
+        "mashape/unirest-php": "^3.0"
     },
     "require-dev": {
-        "mp091689/dump-die": "^1.0",
-        "phpunit/phpunit": "^4.6",
-        "symfony/filesystem": "^2.7|^3.0|^4.0|^5.0"
+        "phpunit/phpunit": "^4.6"
     },
     "autoload": {
         "psr-4": {
@@ -30,7 +25,7 @@
     "autoload-dev": {
         "psr-4": {
             "SsentezoWallet\\Tests\\": "tests/"
-        }        
+        }
     },
     "config": {
         "sort-packages": true
