@@ -1,0 +1,19 @@
+{
+    "name": "daakibenja/ssentezo-wallet",
+    "description": "A package to helpintegrate ssentezo wallet into your php applcation",
+    "type": "library",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Daakibenja\\SsentezoWallet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daaki Benjamin",
+            "email": "richarddaaki4@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {}
+}
