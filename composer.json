@@ -2,7 +2,7 @@
     "name": "daakibenja/ssentezo-wallet",
     "homepage": "https://github.com/daakibenja/ssentezo-wallet",
     "license": "MIT",
-    "description": "A package to helpintegrate ssentezo wallet into your php applcation",
+    "description": "A package to help integrate ssentezo wallet into your php application",
     "authors": [
         {
             "name": "Daaki Benjamin",
