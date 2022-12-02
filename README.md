@@ -1,5 +1,5 @@
 # ssentezo-wallet
-Official package for ssentezo wallet
+A package to help integrate ssentezo wallet into your php application
 
 ## Getting started 
 1. Create a ssentezo wallet account
