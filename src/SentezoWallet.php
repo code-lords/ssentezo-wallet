@@ -4,9 +4,8 @@ namespace SsentezoWallet;
 
 use Exception;
 use SsentezoWallet\Traits\MobileNumber;
-use Unirest\Request;
 
-class SentezoWallet
+class SentezoWallet extends Wallet
 {
     use MobileNumber;
     /**
@@ -155,18 +154,7 @@ class SentezoWallet
         return $this->endPoint;
     }
 
-    private function sendRequest()
-    {
-        try {
-            $headers = array('Content-Type: multipart/form-data');
-            $body = $this->payload;
-            Request::auth($this->username, $this->password);
-            $response = Request::post($this->endPoint, $headers, $body);
-        } catch (Exception $e) {
-            print_r($e);
-        }
-        return $response;
-    }
+    
     public function setEnvironment($env)
     {
         $this->environment = $env;
