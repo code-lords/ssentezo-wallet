@@ -2,10 +2,12 @@
 
 namespace SsentezoWallet;
 
-use Unirest\Request;
+use Exception;
+use SsentezoWallet\Traits\MobileNumber;
 
-class SentezoWallet
+class SentezoWallet extends Wallet
 {
+    use MobileNumber;
     /**
      * @var string
      * This is the username of the ssenteozo wallet api
@@ -83,7 +85,7 @@ class SentezoWallet
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
      * @param string $externalReference The external reference for the withdrawal
-     * @return array
+     * @return \Unrest\Response;
      */
     public function withdraw($msisdn, $amount, $externalReference, $reason, $callback)
     {
@@ -105,27 +107,7 @@ class SentezoWallet
         return $response;
     }
 
-    /**
-     * Formats the mobile money mobile number to the correct format that is expected by the endpoint
-     * @param string $mobile  The mobile number to be formatted
-     * @return string The formatted mobile number
-     */
-    public function formatMobileLocal($mobile)
-    {
-        $length = strlen($mobile);
-        $m = '0';
-        //format 1: +256752665888
-        if ($length == 13)
-            return $m .= substr($mobile, 4);
-        elseif ($length == 12) //format 2: 256752665888
-            return $m .= substr($mobile, 3);
-        elseif ($length == 10) //format 3: 0752665888
-            return $mobile;
-        elseif ($length == 9) //format 4: 752665888
-            return $m .= $mobile;
 
-        return $mobile;
-    }
     /**
      * Withdraws money from the ssentezo wallet to the specified mobile money mobile number
      * @param string $msisdn The mobile money mobile number to get monet from
@@ -172,15 +154,7 @@ class SentezoWallet
         return $this->endPoint;
     }
 
-    private function sendRequest()
-    {
-        $headers = array('Content-Type: multipart/form-data');
-        $body = $this->payload;
-        Request::auth($this->username, $this->password);
-        $response = Request::post($this->endPoint, $headers, $body);
-
-        return $response;
-    }
+    
     public function setEnvironment($env)
     {
         $this->environment = $env;
