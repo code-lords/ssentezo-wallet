@@ -19,7 +19,9 @@
     },
     "autoload": {
         "psr-4": {
-            "SsentezoWallet\\": "src/"
+            "SsentezoWallet\\": "src/",
+            "SsentezoWallet\\Traits\\": "src/traits/",
+            "SsentezoWallet\\Transactions\\": "src/transactions/"
         }
     },
     "autoload-dev": {
