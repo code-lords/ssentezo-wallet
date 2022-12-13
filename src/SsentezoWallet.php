@@ -5,26 +5,26 @@ namespace SsentezoWallet;
 use Exception;
 use SsentezoWallet\Traits\MobileNumber;
 
-class SentezoWallet extends Wallet
+class SsentezoWallet extends Wallet
 {
     use MobileNumber;
     /**
      * @var string
      * This is the username of the ssenteozo wallet api
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      * This is the password of the ssentezo wallet api
      */
-    private $password;
+    protected $password;
 
     /**
      * The environment to use
      * @var string
      */
-    private $environment = "production";
+    protected $environment = "production";
 
     /**
      * @var string
@@ -42,19 +42,25 @@ class SentezoWallet extends Wallet
      * The payload to send to the api
      * @var array
      */
-    private $payload;
+    protected $payload;
 
     /**
      * The currency to use
      * @var string
      */
-    private $currency = "UGX";
+    protected $currency = "UGX";
 
     /**
      * The callback url to use
      * @var string
      */
-    private $callback = '';
+    protected $callback = '';
+
+    /**
+     * Response
+     * @var Response
+     */
+    public $response;
 
     /**
      * Instantiates a ssentezo wallet object which will be used to make real money transactions 
@@ -85,7 +91,7 @@ class SentezoWallet extends Wallet
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
      * @param string $externalReference The external reference for the withdrawal
-     * @return \Unrest\Response;
+     * @return Response;
      */
     public function withdraw($msisdn, $amount, $externalReference, $reason, $callback)
     {
@@ -103,8 +109,8 @@ class SentezoWallet extends Wallet
         $this->setEndPoint($this->baseUrl . "withdraw");
 
         $response =  $this->sendRequest();
-
-        return $response;
+        $this->response = new Response($response);
+        return $this->response;
     }
 
 
@@ -114,7 +120,7 @@ class SentezoWallet extends Wallet
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
      * @param string $externalReference The external reference for the withdrawal
-     * @return array
+     * @return Response
      */
     public function deposit($msisdn, $amount, $externalReference, $reason, $callback)
     {
@@ -129,8 +135,8 @@ class SentezoWallet extends Wallet
         );
 
         $this->setEndPoint($this->baseUrl . "deposit");
-        $response =  $this->sendRequest();
-        return $response;
+        $this->response = new Response($this->sendRequest());
+        return $this->response;
     }
 
     /**
@@ -154,7 +160,7 @@ class SentezoWallet extends Wallet
         return $this->endPoint;
     }
 
-    
+
     public function setEnvironment($env)
     {
         $this->environment = $env;
