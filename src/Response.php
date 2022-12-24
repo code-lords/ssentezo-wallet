@@ -2,12 +2,33 @@
 
 namespace SsentezoWallet;
 
+/**
+ * Class Response
+ * @package SsentezoWallet
+ */
 class Response
 {
+    /**
+     * @var string
+     */
     public $message;
+    /**
+     * @var string
+     */
     public $status;
+    /**
+     * @var string
+     */
     public $errorCode;
+    /**
+     * @var array
+     */
     public $data;
+
+    /**
+     * Response constructor.
+     * @param \Unirest\Response $res
+     */
     public function __construct(\Unirest\Response $res)
     {
         $body = $res->body;
