@@ -73,6 +73,10 @@ class SsentezoWallet extends Wallet
         $this->password = $password;
     }
 
+    /**
+     * Checks the balance of the ssentezo wallet
+     * @return Response The response object
+     */
     function checkBalance()
     {
         $this->payload = [
@@ -81,8 +85,8 @@ class SsentezoWallet extends Wallet
             "currency" => $this->currency
         ];
         $this->setEndPoint($this->baseUrl . "acc_balance");
-        $response = $this->sendRequest();
-        return $response;
+        $this->response = new Response($this->sendRequest());
+        return $this->response;
     }
 
     /**
