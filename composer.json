@@ -1,6 +1,6 @@
 {
     "name": "codelords/ssentezo-wallet",
-    "homepage": "https://github.com/daakibenja/ssentezo-wallet",
+    "homepage": "https://github.com/code-lords/ssentezo-wallet",
     "license": "MIT",
     "description": "A package to help integrate ssentezo wallet into your php application",
     "authors": [
