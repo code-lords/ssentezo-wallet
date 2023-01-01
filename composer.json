@@ -1,5 +1,5 @@
 {
-    "name": "daakibenja/ssentezo-wallet",
+    "name": "codelords/ssentezo-wallet",
     "homepage": "https://github.com/daakibenja/ssentezo-wallet",
     "license": "MIT",
     "description": "A package to help integrate ssentezo wallet into your php application",
