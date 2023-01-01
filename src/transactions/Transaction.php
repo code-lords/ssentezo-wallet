@@ -1,6 +1,6 @@
 <?php
 
-namespace SsentezoWallet\Transactions;
+namespace Codelords\SsentezoWallet\Transactions;
 
 /**
  * This class represents a transction in ssentezo wallet.

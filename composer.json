@@ -19,14 +19,14 @@
     },
     "autoload": {
         "psr-4": {
-            "SsentezoWallet\\": "src/",
-            "SsentezoWallet\\Traits\\": "src/traits/",
-            "SsentezoWallet\\Transactions\\": "src/transactions/"
+            "Codelords\\SsentezoWallet\\": "src/",
+            "Codelords\\SsentezoWallet\\Traits\\": "src/traits/",
+            "Codelords\\SsentezoWallet\\Transactions\\": "src/transactions/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SsentezoWallet\\Tests\\": "tests/"
+            "Codelords\\SsentezoWallet\\Tests\\": "tests/"
         }
     },
     "config": {

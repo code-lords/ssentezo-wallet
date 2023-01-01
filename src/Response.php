@@ -1,6 +1,6 @@
 <?php
 
-namespace SsentezoWallet;
+namespace Codelords\SsentezoWallet;
 
 /**
  * Class Response
