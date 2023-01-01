@@ -3,7 +3,7 @@
 namespace Codelords\SsentezoWallet;
 
 use Exception;
-use SsentezoWallet\Traits\MobileNumber;
+use Codelords\SsentezoWallet\Traits\MobileNumber;
 
 class SsentezoWallet extends Wallet
 {
