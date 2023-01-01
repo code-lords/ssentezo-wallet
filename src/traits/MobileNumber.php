@@ -1,6 +1,6 @@
 <?php
 
-namespace SsentezoWallet\Traits;
+namespace Codelords\SsentezoWallet\Traits;
 
 trait MobileNumber
 {
