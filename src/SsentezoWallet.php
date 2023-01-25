@@ -153,6 +153,19 @@ class SsentezoWallet extends Wallet
         $this->endPoint = $url;
     }
 
+    /**
+     * Checks the status of a transaction in ssentezo wallet.
+     * @param string $externalReference The external reference of the transaction
+     * @return Response
+     */
+    public function checkStatus($externalReference)
+    {
+
+
+        $this->setEndPoint($this->baseUrl . "get_status/$externalReference");
+        $this->response = new Response($this->sendRequest());
+        return $this->response;
+    }
 
     /**
      * Returns the current end point of the api
