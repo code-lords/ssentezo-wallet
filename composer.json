@@ -18,11 +18,9 @@
         "phpunit/phpunit": "^4.6"
     },
     "autoload": {
-        "psr-4": {
-            "Codelords\\SsentezoWallet\\": "src/",
-            "Codelords\\SsentezoWallet\\Traits\\": "src/traits/",
-            "Codelords\\SsentezoWallet\\Transactions\\": "src/transactions/"
-        }
+        "classmap": [
+            "src/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
