@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "744a54ae9a5b3616036cdbc9ff4ea297",
+    "content-hash": "b12435c778981cc1c10a2dfaf92bbe25",
     "packages": [
         {
             "name": "mashape/unirest-php",

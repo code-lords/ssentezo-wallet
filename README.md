@@ -28,7 +28,7 @@ To make transactions you only need to create an instance of the ssentezo wallet
 
 ```php
 
-use SsentezoWallet\SentezoWallet;
+use Codelords\SsentezoWallet;
 
 $username = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 $password = "zzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -69,3 +69,5 @@ Here is a list of all the possible configurations and the various methods you ca
 | Environment   | The enviroment you are using your wallet in                              | production, sandbox | setEnvironment($value) | getEnvironment() |
 | Currency      | The currency                                                             | UGX, KES            | setCurrency($value)    | getCurrency()    |
 | Callback      | A valid url which ssentezo wallet calls incase the transaction completes | A valid url         | setCallback($url)      | getCallback()    |
+
+## Making a deposit
