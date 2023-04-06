@@ -19,7 +19,7 @@ $ composer require code-lords/ssentezo-wallet
 After ssentezo wallet installs, you can copy an example file to the project root.
 
 ```
-$ cp vendor/daakibenja/ssentezo-wallet/resources/example.php .
+$ cp vendor/code-lords/ssentezo-wallet/resources/example.php .
 ```
 
 ## Making tranasactions
