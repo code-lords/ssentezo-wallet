@@ -71,3 +71,80 @@ Here is a list of all the possible configurations and the various methods you ca
 | Callback      | A valid url which ssentezo wallet calls incase the transaction completes | A valid url         | setCallback($url)      | getCallback()    |
 
 ## Making a deposit
+
+```php
+use Codelords\SsentezoWallet;
+
+$wallet = new SsentezoWallet($username, $password);
+$username =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API username
+$password =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API password
+$phone_number = "+256771234567";
+$amount = 10000.00;
+$transaction_ref = "xxx";//Some unique reference to the transaction
+$narrative = "xxx"; //A description of the transaction
+$successCallbackUrl = "https://example.com/success";//A call back once the transaction is successful
+try {
+
+    $ret = $wallet->deposit($phone_number,$amount,$transaction_ref,$narrative,$successCallbackUrl);
+    //
+}catch(\Exception $e){
+    //Something wrong happened
+    echo "Exception: ". $e->getMessage();
+}
+
+```
+
+## Check Status of Transaction
+
+```php
+$transaction_ref = "xxx";//The unique identifier of the transaction
+$username =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API username
+$password =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API password
+$wallet = new SsentezoWallet($username, $password);
+
+try {
+    $response = $wallet->checkStatus($prn);//The response object has all the information about the transaction
+    //You can then find the status
+    switch ($response->status) {
+        case "SUCCEEDED": // For success
+            break;
+        case "FAILED": //Failed the transaction 
+            break;
+        case "PENDING": //Still Pending
+            break;
+        case "INDETERMINATE": //As the name suggests 
+            break;
+        default:// WTF
+    }
+} catch (Exception $e) {
+    //Something went wrong
+    echo "Exception: ".$e->getMessage();
+            
+}
+```
+
+## Making a Withrawal
+
+```php
+use Codelords\SsentezoWallet;
+
+$wallet = new SsentezoWallet($username, $password);
+$username =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API username
+$password =  "xxxxxxxxxxxxxxxxxxxxx";//Put here your API password
+$phone_number = "+256771234567";
+$amount = 10000.00;
+$transaction_ref = "xxx";//Some unique reference to the transaction
+$narrative = "xxx"; //A description of the transaction
+$successCallbackUrl = "https://example.com/success";//A call back once the transaction is successful
+ 
+
+try {
+
+    $response = $wallet->withdraw($phone_number, $amount, $transaction_ref, $narrative, $successCallback);
+    //
+}catch(\Exception $e){
+    //Something wrong happened
+    echo "Exception: ". $e->getMessage();
+}
+
+```
