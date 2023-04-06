@@ -13,7 +13,7 @@ A package to help integrate ssentezo wallet into your php application
 The recommended way to install ssentezo wallet is through [Composer](http://getcomposer.org):
 
 ```
-$ composer require daakibenja/ssentezo-wallet
+$ composer require code-lords/ssentezo-wallet
 ```
 
 After ssentezo wallet installs, you can copy an example file to the project root.
