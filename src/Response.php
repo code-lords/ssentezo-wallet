@@ -11,38 +11,38 @@ class Response
     /**
      * @var string
      */
-    public $message;
+    public $message = "";
     /**
      * @var string
      */
-    public $status;
+    public $status = "";
     /**
      * @var string
      */
-    public $errorCode;
+    public $errorCode = "";
     /**
      * @var array
      */
-    public $data;
+    public $data = [];
 
     /**
      * The external reference
      */
-    public $externalReference;
+    public $externalReference = "";
 
     /**
      * The id of the request
      */
-    public $request_id;
+    public $request_id = "";
 
     /**
      * Transaction  status
      */
-    public $transactionStatus;
+    public $transactionStatus = "";
     /**
      * Finacial transaction id
      */
-    public $financialTransactionId;
+    public $financialTransactionId = "";
     /**
      * Response constructor.
      * @param \Unirest\Response $res
@@ -50,13 +50,23 @@ class Response
     public function __construct(\Unirest\Response $res)
     {
         $body = $res->body;
-        $this->errorCode = ""; //$body->errorCode;
-        $this->message = $body->message;
-        $this->status = ""; //$body->status;
-        $this->data = (array)$body->data;
-        $this->externalReference = $this->data["externalReference"];
-        $this->request_id = $this->data["request_id"];
-        $this->transactionStatus = $this->data['transactionStatus'];
-        $this->financialTransactionId = $this->data['financialTransactionId'] ?? "";
+        if (property_exists($body, 'errorCode')) {
+            $this->errorCode = $body->errorCode;
+        }
+
+        if (property_exists($body, 'message')) {
+            $this->message = $body->message;
+        }
+
+        if (property_exists($body, 'status')) {
+            $this->status = $body->status;
+        }
+        if (property_exists($body, 'data')) {
+            $this->data = (array)$body->data;
+            $this->externalReference = $this->data["externalReference"] ?? "";
+            $this->request_id = $this->data["request_id"] ?? "";
+            $this->transactionStatus = $this->data['transactionStatus'] ?? "";
+            $this->financialTransactionId = $this->data['financialTransactionId'] ?? "";
+        }
     }
 }
