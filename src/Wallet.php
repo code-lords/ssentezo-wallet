@@ -10,16 +10,5 @@ use Unirest\Request;
  */
 class Wallet
 {
-    protected function sendRequest()
-    {
-        try {
-            $headers = array('Content-Type: multipart/form-data');
-            $body = $this->payload;
-            Request::auth($this->username, $this->password);
-            $response = Request::post($this->endPoint, $headers, $body);
-        } catch (Exception $e) {
-            print_r($e);
-        }
-        return $response;
-    }
+   
 }

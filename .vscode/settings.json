@@ -3,5 +3,6 @@
         "codelords",
         "Daaki",
         "ssentezo"
-    ]
+    ],
+    "php.version": "8.0"
 }
