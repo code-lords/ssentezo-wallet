@@ -222,7 +222,7 @@ class SsentezoWallet
         } catch (Exception $e) {
             print_r($e);
         }
-        print_r($response);
+        // print_r($response);
         return $response;
     }
 }
