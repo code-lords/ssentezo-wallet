@@ -2,10 +2,17 @@
 
 namespace Codelords\SsentezoWallet;
 
+use Codelords\SsentezoWallet\Response\AccountBalanceResponse;
+use Codelords\SsentezoWallet\Response\DepositResponse;
+use Codelords\SsentezoWallet\Response\PhoneNumberVerificationResponse;
+use Codelords\SsentezoWallet\Response\TransactionStatusResponse;
+use Codelords\SsentezoWallet\Response\WithdrawalResponse;
 use Exception;
 use Codelords\SsentezoWallet\Traits\MobileNumber;
+use Unirest\Request;
+use Codelords\SsentezoWallet\Response;
 
-class SsentezoWallet extends Wallet
+class SsentezoWallet
 {
     use MobileNumber;
     /**
@@ -58,8 +65,7 @@ class SsentezoWallet extends Wallet
 
     /**
      * Response
-     * @var Response
-     */
+      */
     public $response;
 
     /**
@@ -74,10 +80,24 @@ class SsentezoWallet extends Wallet
     }
 
     /**
-     * Checks the balance of the ssentezo wallet
-     * @return Response The response object
+     * Gets the legal registration names of the phone number
+     * @return PhoneNumberVerificationResponse The response object
      */
-    function checkBalance()
+    function verifyPhoneNumber($phone_number): PhoneNumberVerificationResponse
+    {
+        $this->payload = [
+            "msisdn" => $phone_number
+        ];
+        $this->setEndPoint($this->baseUrl . "msisdn-verification");
+        $this->response = new PhoneNumberVerificationResponse($this->sendRequest());
+        return $this->response;
+    }
+
+    /**
+     * Checks the balance of the ssentezo wallet
+     * @return AccountBalanceResponse The response object
+     */
+    function checkBalance(): AccountBalanceResponse
     {
         $this->payload = [
             "username" => $this->username,
@@ -85,7 +105,7 @@ class SsentezoWallet extends Wallet
             "currency" => $this->currency
         ];
         $this->setEndPoint($this->baseUrl . "acc_balance");
-        $this->response = new Response($this->sendRequest());
+        $this->response = new AccountBalanceResponse($this->sendRequest());
         return $this->response;
     }
 
@@ -95,9 +115,9 @@ class SsentezoWallet extends Wallet
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
      * @param string $externalReference The external reference for the withdrawal
-     * @return Response;
+     * @return WithdrawalResponse;
      */
-    public function withdraw($msisdn, $amount, $externalReference, $reason, $callback)
+    public function withdraw($msisdn, $amount, $externalReference, $reason, $name = "", $success_callback = "", $failure_callback = ""): WithdrawalResponse
     {
 
         $this->payload = array(
@@ -105,15 +125,17 @@ class SsentezoWallet extends Wallet
             "amount" => $amount,
             "reason" => $reason,
             "externalReference" => $externalReference,
-            "callback" => $callback,
             "currency" => $this->currency,
-            "environment" => $this->environment,
+
+            'name' => $name,
+            'success_callback' => $success_callback,
+            'failure_callback' => $failure_callback,
         );
 
         $this->setEndPoint($this->baseUrl . "withdraw");
 
         $response =  $this->sendRequest();
-        $this->response = new Response($response);
+        $this->response = new WithdrawalResponse($response);
         return $this->response;
     }
 
@@ -124,22 +146,26 @@ class SsentezoWallet extends Wallet
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
      * @param string $externalReference The external reference for the withdrawal
-     * @return Response
+     * @return DepositResponse
      */
-    public function deposit($msisdn, $amount, $externalReference, $reason, $callback)
+    public function deposit($msisdn, $amount, $externalReference, $reason,  $name = "", $success_callback = "", $failure_callback = ""): DepositResponse
     {
         $this->payload = array(
             "msisdn" => $this->formatMobileLocal($msisdn),
             "amount" => $amount,
             "reason" => $reason,
             "externalReference" => $externalReference,
-            "callback" => $callback,
+
             "currency" => $this->currency,
-            "environment" => $this->environment,
+
+            'name' => $name,
+            'success_callback' => $success_callback,
+            'failure_callback' => $failure_callback,
+
         );
 
         $this->setEndPoint($this->baseUrl . "deposit");
-        $this->response = new Response($this->sendRequest());
+        $this->response = new DepositResponse($this->sendRequest());
         return $this->response;
     }
 
@@ -156,14 +182,14 @@ class SsentezoWallet extends Wallet
     /**
      * Checks the status of a transaction in ssentezo wallet.
      * @param string $externalReference The external reference of the transaction
-     * @return Response
+     * @return TransactionStatusResponse
      */
-    public function checkStatus($externalReference)
+    public function checkStatus($externalReference): TransactionStatusResponse
     {
 
 
         $this->setEndPoint($this->baseUrl . "get_status/$externalReference");
-        $this->response = new Response($this->sendRequest());
+        $this->response = new TransactionStatusResponse($this->sendRequest());
         return $this->response;
     }
 
@@ -185,5 +211,18 @@ class SsentezoWallet extends Wallet
     public function getEnvironment()
     {
         return $this->environment;
+    }
+    protected function sendRequest()
+    {
+        try {
+            $headers = array('Content-Type: multipart/form-data');
+            $body = $this->payload;
+            Request::auth($this->username, $this->password);
+            $response = Request::post($this->endPoint, $headers, $body);
+        } catch (Exception $e) {
+            print_r($e);
+        }
+        print_r($response);
+        return $response;
     }
 }
