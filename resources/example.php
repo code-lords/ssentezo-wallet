@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__. "/../vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use SsentezoWallet\SsentezoWallet;
 
@@ -9,7 +9,8 @@ $wallet = new \Codelords\SsentezoWallet\SsentezoWallet($username, $password);
 // $wallet->setEnvironment("sandbox");
 // $res = $wallet->deposit("256771397135", 500, "TEST DEPOZITz", "Deposit from mtn account");
 // $wallet->deposit('0756291975', 1000, 'selld', "NOlne", "ggggggg");
-$wallet->checkStatus('TEST DEPOZITz');
+// $wallet->getAvailableBanks();
+$wallet->requestBankTransfer(1, "DAAKI BENJAMIN", "10", 1000000000000000000);
 // $wallet->checkStatus('1651714399166_4');
 $res = $wallet->response;
 // $data = $res->data;

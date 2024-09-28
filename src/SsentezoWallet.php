@@ -3,6 +3,7 @@
 namespace Codelords\SsentezoWallet;
 
 use Codelords\SsentezoWallet\Response\AccountBalanceResponse;
+use Codelords\SsentezoWallet\Response\BankListResponse;
 use Codelords\SsentezoWallet\Response\DepositResponse;
 use Codelords\SsentezoWallet\Response\PhoneNumberVerificationResponse;
 use Codelords\SsentezoWallet\Response\TransactionStatusResponse;
@@ -11,6 +12,7 @@ use Exception;
 use Codelords\SsentezoWallet\Traits\MobileNumber;
 use Unirest\Request;
 use Codelords\SsentezoWallet\Response;
+use Codelords\SsentezoWallet\Response\PushToBankResponse;
 
 class SsentezoWallet
 {
@@ -65,7 +67,7 @@ class SsentezoWallet
 
     /**
      * Response
-      */
+     */
     public $response;
 
     /**
@@ -141,7 +143,7 @@ class SsentezoWallet
 
 
     /**
-     * Withdraws money from the ssentezo wallet to the specified mobile money mobile number
+     * Deposits to the ssentezo wallet account from the specified mobile money
      * @param string $msisdn The mobile money mobile number to get monet from
      * @param float $amount The amount to withdraw
      * @param string $reason The reason for the withdrawal
@@ -224,5 +226,42 @@ class SsentezoWallet
         }
         // print_r($response);
         return $response;
+    }
+
+    /**
+     * Get a list of available banks to transfer
+     * @return BankListResponse
+     */
+    public function getAvailableBanks()
+    {
+
+
+        $this->setEndPoint($this->baseUrl . "push-to-bank/get-banks");
+        $this->response = new BankListResponse($this->sendRequest());
+        return $this->response;
+    }
+
+
+
+    /**
+     * Request to push money from ssentezo wallet to a bank account 
+     * @param mixed $bank_id
+     * @param mixed $account_name
+     * @param mixed $account_number
+     * @param mixed $amount
+     * @return \Codelords\SsentezoWallet\Response\PushToBankResponse
+     */
+    public function requestBankTransfer($bank_id, $account_name, $account_number, $amount): PushToBankResponse
+    {
+        $this->payload = array(
+            'bank_id' => $bank_id, // The id of one of the banks that we support. It's obtained from the get-banks endpoint
+            'account_name' => $account_name, // The name of the bank account you would like the funds to be transfered to
+            'account_number' => $account_number, // The bank account number you would like the funds to be transfered to
+            'amount' => $amount, // The amount of money you would like to transfer. Minimum amount is UGX 50,000
+        );
+
+        $this->setEndPoint($this->baseUrl . "push-to-bank/request-bank-transfer");
+        $this->response = new PushToBankResponse($this->sendRequest());
+        return $this->response;
     }
 }
