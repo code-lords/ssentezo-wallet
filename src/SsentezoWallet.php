@@ -13,6 +13,7 @@ use Codelords\SsentezoWallet\Traits\MobileNumber;
 use Unirest\Request;
 use Codelords\SsentezoWallet\Response;
 use Codelords\SsentezoWallet\Response\PushToBankResponse;
+use Codelords\SsentezoWallet\Response\PushToBankStatusResponse;
 
 class SsentezoWallet
 {
@@ -251,9 +252,10 @@ class SsentezoWallet
      * @param mixed $amount
      * @return \Codelords\SsentezoWallet\Response\PushToBankResponse
      */
-    public function requestBankTransfer($bank_id, $account_name, $account_number, $amount): PushToBankResponse
+    public function requestBankTransfer($bank_id, $account_name, $account_number, $amount, $external_ref): PushToBankResponse
     {
         $this->payload = array(
+            'external_reference' => $external_ref,
             'bank_id' => $bank_id, // The id of one of the banks that we support. It's obtained from the get-banks endpoint
             'account_name' => $account_name, // The name of the bank account you would like the funds to be transfered to
             'account_number' => $account_number, // The bank account number you would like the funds to be transfered to
@@ -262,6 +264,23 @@ class SsentezoWallet
 
         $this->setEndPoint($this->baseUrl . "push-to-bank/request-bank-transfer");
         $this->response = new PushToBankResponse($this->sendRequest());
+        return $this->response;
+    }
+
+    /**
+     * Checks the status of a transaction in ssentezo wallet.
+     * @param string $externalReference The external reference of the transaction
+     * @return TransactionStatusResponse
+     */
+    public function checkPushToBankStatus($externalReference): PushToBankStatusResponse
+    {
+
+
+        $this->payload = array(
+            'external_reference' => $externalReference
+        );
+        $this->setEndPoint($this->baseUrl . "push-to-bank/check-bank-transfer-status");
+        $this->response = new PushToBankStatusResponse($this->sendRequest());
         return $this->response;
     }
 }
