@@ -252,7 +252,7 @@ class SsentezoWallet
      * @param mixed $amount
      * @return \Codelords\SsentezoWallet\Response\PushToBankResponse
      */
-    public function requestBankTransfer($bank_id, $account_name, $account_number, $amount, $external_ref): PushToBankResponse
+    public function requestBankTransfer($bank_id, $account_name, $account_number, $amount, $external_ref, $reason=""): PushToBankResponse
     {
         $this->payload = array(
             'external_reference' => $external_ref,
@@ -260,6 +260,7 @@ class SsentezoWallet
             'account_name' => $account_name, // The name of the bank account you would like the funds to be transfered to
             'account_number' => $account_number, // The bank account number you would like the funds to be transfered to
             'amount' => $amount, // The amount of money you would like to transfer. Minimum amount is UGX 50,000
+            'reason'=>$reason
         );
 
         $this->setEndPoint($this->baseUrl . "push-to-bank/request-bank-transfer");
